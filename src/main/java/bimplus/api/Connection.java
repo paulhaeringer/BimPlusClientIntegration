@@ -121,6 +121,34 @@ public class Connection
         return connection.getInputStream();
     }
 
+    public String sendHeadRequest(String requestUrl) throws IOException
+    {
+
+        URL url = new URL(requestUrl);
+        connection = (HttpURLConnection) url.openConnection();
+
+        // optional default is GET
+        connection.setRequestMethod("HEAD");
+        connection.setRequestProperty("Authorization", AuthorizationTokenType + " " + access_token);
+
+        int responseCode = connection.getResponseCode();
+        System.out.println("\nSending 'HEAD' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        return response.toString();
+    }
+
+
     // TODO
     public Boolean ValidateToken()
     {

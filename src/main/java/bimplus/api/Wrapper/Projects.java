@@ -31,15 +31,12 @@ public class Projects extends BaseWrapper
         return null;
     }
 
-    public void CreateNewProject(String projectName)
+    public void CreateNewProject(DtoProject project)
     {
         try
         {
-            DtoProject proj = new DtoProject();
-            proj.setName(projectName);
-
             // Convert to JSON
-            String jsonInString = core.mapper.writeValueAsString(proj);
+            String jsonInString = core.mapper.writeValueAsString(project);
             String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects", jsonInString);
         }
         catch(IOException e)

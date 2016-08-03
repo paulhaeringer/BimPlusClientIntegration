@@ -29,6 +29,21 @@ public class Attachments extends BaseWrapper
         {
             core._exceptionList.add(e.getMessage());
         }
+
         return null;
+    }
+
+    public void CreateAttachment(String projectID, DtoAttachment attachment)
+    {
+        try
+        {
+            // Convert to JSON
+            String jsonInString = core.mapper.writeValueAsString(attachment);
+            String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects", jsonInString);
+        }
+        catch(IOException e)
+        {
+            core._exceptionList.add(e.getMessage());
+        }
     }
 }

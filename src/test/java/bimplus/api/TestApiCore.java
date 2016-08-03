@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,11 +38,24 @@ public class TestApiCore
         // PROJECTS
         Projects projectAPI = new Projects(core);
         List<DtoProject> projects = projectAPI.GetProjects();
-        // projectAPI.CreateNewProject("TestProject");
+
+        // Create a new project
+        // DtoProject project = new DtoProject();
+        // project.setName("TestMe!");
+        // projectAPI.CreateNewProject(project);
 
         // DIVISIONS
         Divisions divisionAPI = new Divisions(core);
-        List<DtoDivision> divisions = divisionAPI.GetModels(projects.get(0).GetId());
+        List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
+
+        List<DtoDivision> ifcProjects = new ArrayList<DtoDivision>();
+        for (DtoDivision division : divisions)
+        {
+            if(division.getIfcProject() != null)
+            {
+                ifcProjects.add(division);
+            }
+        }
 
         // ISSUES
         Issues issueAPI = new Issues(core);

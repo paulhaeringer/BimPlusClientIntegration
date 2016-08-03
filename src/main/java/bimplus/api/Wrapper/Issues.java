@@ -36,10 +36,8 @@ public class Issues extends BaseWrapper
     {
         try
         {
-            DtoIssue proj = new DtoIssue();
-
             // Convert to JSON
-            String jsonInString = core.mapper.writeValueAsString(proj);
+            String jsonInString = core.mapper.writeValueAsString(issue);
             String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects", jsonInString);
         }
         catch(IOException e)
