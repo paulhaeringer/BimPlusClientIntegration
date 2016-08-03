@@ -7,6 +7,7 @@ import bimplus.data.DtoTeam;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -82,13 +83,30 @@ public class ApiCore
         return null;
     }
 
-    public String DownloadDivision(String divisionId)
+    public String DownloadDivisionAsString(String divisionId)
     {
         https://api-stage.bimplus.net/v2/<team_slug>/divisions/<division_id>/download?api-token=token
 
         try
         {
+            InputStream stream = connection.sendDownloadRequest( GetV2TeamUrl() + "/divisions/" + divisionId + "/download?api-token=" + connection.access_token);
+
             return connection.sendGetRequest( GetV2TeamUrl() + "/divisions/" + divisionId + "/download?api-token=" + connection.access_token);
+        }
+        catch(IOException e)
+        {
+            _exceptionList.add(e.getMessage());
+        }
+        return null;
+    }
+
+    public InputStream DownloadDivisionAsStream(String divisionId)
+    {
+        https://api-stage.bimplus.net/v2/<team_slug>/divisions/<division_id>/download?api-token=token
+
+        try
+        {
+            return connection.sendDownloadRequest( GetV2TeamUrl() + "/divisions/" + divisionId + "/download?api-token=" + connection.access_token);
         }
         catch(IOException e)
         {

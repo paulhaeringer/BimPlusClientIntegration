@@ -6,6 +6,10 @@ import bimplus.data.DtoProject;
 import bimplus.data.DtoTeam;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -33,9 +37,29 @@ public class TestApiCore
 
         DtoDivision division = divisions.get(0);
 
-        String model = core.DownloadDivision(division.GetId());
+        // String model = core.DownloadDivisionAsString(division.GetId());
 
+        // Get a IFC model as Stream and read it to String
+        InputStream stream = core.DownloadDivisionAsStream(division.GetId());
 
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(stream));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        try
+        {
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+        }
+        catch (IOException e )
+        {
+
+        }
+
+        String result = response.toString();
 
         // Get the IFC Project
 

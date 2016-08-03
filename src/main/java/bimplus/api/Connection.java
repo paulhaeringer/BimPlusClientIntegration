@@ -102,6 +102,23 @@ public class Connection
         return response.toString();
     }
 
+    public InputStream sendDownloadRequest(String requestUrl) throws IOException
+    {
+        URL url = new URL(requestUrl);
+        connection = (HttpURLConnection) url.openConnection();
+
+        // optional default is GET
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Content-Type", "octet-stream");
+        connection.setRequestProperty("Authorization", AuthorizationTokenType + " " + access_token);
+
+        int responseCode = connection.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+
+        return connection.getInputStream();
+    }
+
     // TODO
     public Boolean ValidateToken()
     {
