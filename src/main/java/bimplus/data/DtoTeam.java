@@ -2,14 +2,15 @@ package bimplus.data;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.map.deser.ValueInstantiators;
 
 /**
  * Created by Cornelius on 02.08.2016.
  */
-public class DtoTeam
+public class DtoTeam extends BaseDto
 {
     public String slug;
-    public String id;
+    // public String id;
     public String name;
     public String displayname;
     public String owner;
@@ -17,8 +18,8 @@ public class DtoTeam
     @JsonProperty("slug")
     public String GetSlug() { return slug; }
 
-    @JsonProperty("id")
-    public String GetId() { return id; }
+    // @JsonProperty("id")
+    // public String GetId() { return id; }
 
     @JsonProperty("name")
     public String GetName() { return name; }
@@ -31,10 +32,8 @@ public class DtoTeam
 
     @JsonIgnore
     public String ownerobject;
-
     @JsonIgnore
     public double totalstorage;
-
     @JsonIgnore
     public double storagestats;
     @JsonIgnore
@@ -53,6 +52,4 @@ public class DtoTeam
     public double publicwrite;
     @JsonIgnore
     public double accountType;
-
-
 }

@@ -14,11 +14,15 @@ import org.json.JSONTokener;
 public class Connection
 {
     public HttpURLConnection connection;
-    private String access_token = "";
-    private String AuthorizationTokenType = "BimPlus";
+    public String access_token = "";
+    public String AuthorizationTokenType = "BimPlus";
+    public BimPlusHost host;
 
-    public Boolean Connect(String username, String password, BimPlusHost host)
+    public Boolean Connect(String username, String password, BimPlusHost _host)
     {
+        // Init
+        host = _host;
+
         String payload="{\"user_id\":\"" + username + "\",\"password\":\"" + password + "\"}";
         // String requestUrl= host + "https://api-dev.bimplus.net/v2/authorize";
         String requestUrl= host.getServerName() + "/v2/authorize";
@@ -96,5 +100,11 @@ public class Connection
         in.close();
 
         return response.toString();
+    }
+
+    // TODO
+    public Boolean ValidateToken()
+    {
+        return true;
     }
 }
