@@ -77,6 +77,41 @@ public class Connection
         return jsonString.toString();
     }
 
+    public String sendPutRequest(String requestUrl, String payload)
+    {
+        StringBuffer jsonString;
+        try
+        {
+            URL url = new URL(requestUrl);
+            connection = (HttpURLConnection) url.openConnection();
+
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            if(access_token != null)
+                connection.setRequestProperty("Authorization", "BimPlus " + access_token);
+
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+            writer.write(payload);
+            writer.close();
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            jsonString = new StringBuffer();
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                jsonString.append(line);
+            }
+            br.close();
+            connection.disconnect();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e.getMessage());
+        }
+        return jsonString.toString();
+    }
+
     public String sendGetRequest(String requestUrl) throws IOException
     {
 

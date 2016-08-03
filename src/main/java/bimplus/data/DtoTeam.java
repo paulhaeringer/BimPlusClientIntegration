@@ -7,8 +7,7 @@ import org.codehaus.jackson.map.deser.ValueInstantiators;
 /**
  * Created by Cornelius on 02.08.2016.
  */
-public class DtoTeam extends BaseDto
-{
+public class DtoTeam extends BaseDto {
     public String slug;
     // public String id;
     public String name;
@@ -16,19 +15,27 @@ public class DtoTeam extends BaseDto
     public String owner;
 
     @JsonProperty("slug")
-    public String GetSlug() { return slug; }
+    public String GetSlug() {
+        return slug;
+    }
 
     // @JsonProperty("id")
     // public String GetId() { return id; }
 
     @JsonProperty("name")
-    public String GetName() { return name; }
+    public String GetName() {
+        return name;
+    }
 
     @JsonProperty("displayname")
-    public String GetDisplayName() { return displayname; }
+    public String GetDisplayName() {
+        return displayname;
+    }
 
     @JsonProperty("owner")
-    public String GetOwner() { return owner; }
+    public String GetOwner() {
+        return owner;
+    }
 
     @JsonIgnore
     public String ownerobject;

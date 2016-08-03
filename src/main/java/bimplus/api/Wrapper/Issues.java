@@ -2,7 +2,6 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtoIssue;
-import bimplus.data.DtoProject;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,7 +37,7 @@ public class Issues extends BaseWrapper
         {
             // Convert to JSON
             String jsonInString = core.mapper.writeValueAsString(issue);
-            String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects", jsonInString);
+            String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects/" + projectID + "/issues", jsonInString);
         }
         catch(IOException e)
         {

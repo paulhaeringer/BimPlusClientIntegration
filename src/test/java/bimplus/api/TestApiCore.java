@@ -48,35 +48,34 @@ public class TestApiCore
         Divisions divisionAPI = new Divisions(core);
         List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
 
+        // PutDivision - e.g. for a new version of the division
+        // DtoDivision division = divisions.get(0);
+        // division.setName(division.getName() + "_newVersionBySMC");
+        // divisionAPI.PutDivision(division.GetId(), division);
+
+        // Get the IFC Projects ...
         List<DtoDivision> ifcProjects = new ArrayList<DtoDivision>();
-        for (DtoDivision division : divisions)
+        for (DtoDivision item : divisions)
         {
-            if(division.getIfcProject() != null)
+            if (item.getInputType().equals("IFC_IMPORT"))
             {
-                ifcProjects.add(division);
+                ifcProjects.add(item);
             }
         }
 
-        // ISSUES
-        Issues issueAPI = new Issues(core);
-        List<DtoIssue> issues = issueAPI.GetIssues(projects.get(0).id);
-
-        // ATTACHMENTS
-        Attachments attachmentAPI = new Attachments(core);
-        attachmentAPI.GetAttachments(projects.get(0).id);
 
         // DOWNLOAD IFC FILES
         // as STRING
         String ifcFile = divisionAPI.DownloadDivisionAsString(divisions.get(0).GetId());
         // as STREAM
         InputStream ifcStream = divisionAPI.DownloadDivisionAsStream(divisions.get(0).GetId());
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(ifcStream));
+        BufferedReader in = new BufferedReader(new InputStreamReader(ifcStream));
         String inputLine;
         StringBuffer response = new StringBuffer();
         try
         {
-            while ((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null)
+            {
                 response.append(inputLine);
             }
             in.close();
@@ -86,5 +85,21 @@ public class TestApiCore
 
         }
         String result = response.toString();
+
+
+        // ISSUES
+        Issues issueAPI = new Issues(core);
+        List<DtoIssue> issues = issueAPI.GetIssues(projects.get(0).id);
+
+        // Create an Issue
+        DtoIssue issue = new DtoIssue();
+        issue.setName("This is my Test Issue! jdahesaoiesahrleshrl");
+        issueAPI.CreateIssue(projects.get(0).id, issue);
+
+        // ATTACHMENTS
+        Attachments attachmentAPI = new Attachments(core);
+        attachmentAPI.GetAttachments(projects.get(0).id);
+
+
     }
 }

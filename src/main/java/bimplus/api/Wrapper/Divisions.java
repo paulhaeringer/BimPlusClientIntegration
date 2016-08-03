@@ -47,6 +47,22 @@ public class Divisions extends BaseWrapper
         return null;
     }
 
+    public boolean PutDivision(String divisionId, DtoDivision division)
+    {
+        try
+        {
+            // Convert to JSON
+            String jsonInString = core.mapper.writeValueAsString(division);
+            String json = core.connection.sendPutRequest(core.GetV2TeamUrl() + "/divisions/" + divisionId, jsonInString);
+            return true;
+        }
+        catch(IOException e)
+        {
+            core._exceptionList.add(e.getMessage());
+        }
+        return false;
+    }
+
     public String DownloadDivisionAsString(String divisionId)
     {
         try
