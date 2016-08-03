@@ -54,6 +54,8 @@ public class Connection
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
+            if(access_token != null)
+                connection.setRequestProperty("Authorization", "BimPlus " + access_token);
 
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             writer.write(payload);

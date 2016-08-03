@@ -2,6 +2,7 @@ package bimplus.data;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.joda.time.DateTime;
 
 /**
  * Created by Cornelius on 03.08.2016.
@@ -74,15 +75,15 @@ public class DtoProject extends BaseDto
         Thumbnail = value;
     }
 
-    //@JsonProperty("created")
+    @JsonProperty("created")
     // java.time.LocalDateTime
-    @JsonIgnore
-    private String Created = null;
-    public String getCreated()
+    // @JsonIgnore
+    private DateTime Created = null;
+    public DateTime getCreated()
     {
         return Created;
     }
-    public void setCreated(String value)
+    public void setCreated(DateTime value)
     {
         Created = value;
     }
@@ -100,15 +101,13 @@ public class DtoProject extends BaseDto
     //     createdby = value;
     // }
 
-    //@JsonProperty("changed")
-    // type DateTime
-    @JsonIgnore
-    private String Changed = null;
-    public String getChanged()
+    @JsonProperty("changed")
+    private DateTime Changed = null;
+    public DateTime getChanged()
     {
         return Changed;
     }
-    public void setChanged(String value)
+    public void setChanged(DateTime value)
     {
         Changed = value;
     }

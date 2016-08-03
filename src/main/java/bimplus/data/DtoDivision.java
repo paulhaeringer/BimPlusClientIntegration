@@ -2,6 +2,7 @@ package bimplus.data;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.joda.time.DateTime;
 
 /**
  * Created by Cornelius on 03.08.2016.
@@ -133,12 +134,12 @@ public class DtoDivision extends BaseDto
     /** Time of creation
      */
     @JsonProperty("created")
-    private String Created = null;
-    public String getCreated()
+    private DateTime Created = null;
+    public DateTime getCreated()
     {
         return Created;
     }
-    public void setCreated(String value)
+    public void setCreated(DateTime value)
     {
         Created = value;
     }
@@ -159,12 +160,12 @@ public class DtoDivision extends BaseDto
     /** Time of last modification
      */
     @JsonProperty("changed")
-    private String Changed = null;
-    public String getChanged()
+    private DateTime Changed = null;
+    public DateTime getChanged()
     {
         return Changed;
     }
-    public void setChanged(String value)
+    public void setChanged(DateTime value)
     {
         Changed = value;
     }

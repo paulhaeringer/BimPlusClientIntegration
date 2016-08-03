@@ -1,9 +1,6 @@
 package bimplus.api;
 
-import bimplus.data.DtoDivision;
-import bimplus.data.DtoModel;
-import bimplus.data.DtoProject;
-import bimplus.data.DtoTeam;
+import bimplus.data.*;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
@@ -15,10 +12,11 @@ import java.util.List;
  */
 public class ApiCore
 {
-    private Connection connection;
-    private List<String> _exceptionList;
+    public Connection connection;
+    public List<String> _exceptionList;
     private String teamSlug;
-    private ObjectMapper mapper;
+    public ObjectMapper mapper;
+    public Boolean connected = false;
 
     public ApiCore(String username, String password, BimPlusHost host)
     {
@@ -27,93 +25,12 @@ public class ApiCore
 
         // Connection
         connection = new Connection();
-        connection.Connect(username, password, host);
+        connected = connection.Connect(username, password, host);
     }
 
     public String GetV2TeamUrl()
     {
         return connection.host.getServerName() + "/v2/" + teamSlug;
-    }
-
-    public List<DtoTeam> GetTeams()
-    {
-        try
-        {
-            String json = connection.sendGetRequest( connection.host.getServerName() + "/v2/teams");
-            // Mapping mechanism
-            // ObjectMapper mapper = new ObjectMapper();
-            List<DtoTeam> teams = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, DtoTeam.class));
-            return teams;
-        }
-        catch(IOException e)
-        {
-            _exceptionList.add(e.getMessage());
-        }
-        return null;
-    }
-
-    public List<DtoProject> GetProjects()
-    {
-        try
-        {
-            String json = connection.sendGetRequest( GetV2TeamUrl() + "/projects");
-            List<DtoProject> projects = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, DtoProject.class));
-            return projects;
-            // return teams;
-        }
-        catch(IOException e)
-        {
-            _exceptionList.add(e.getMessage());
-        }
-        return null;
-    }
-
-    public List<DtoDivision> GetModels(String projectId)
-    {
-        try
-        {
-            String json = connection.sendGetRequest( GetV2TeamUrl() + "/projects/" + projectId + "/divisions");
-            List<DtoDivision> models = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, DtoDivision.class));
-            return models;
-        }
-        catch(IOException e)
-        {
-            _exceptionList.add(e.getMessage());
-        }
-        return null;
-    }
-
-    public String DownloadDivisionAsString(String divisionId)
-    {
-        https://api-stage.bimplus.net/v2/<team_slug>/divisions/<division_id>/download?api-token=token
-
-        try
-        {
-            InputStream stream = connection.sendDownloadRequest( GetV2TeamUrl() + "/divisions/" + divisionId + "/download?api-token=" + connection.access_token);
-
-            return connection.sendGetRequest( GetV2TeamUrl() + "/divisions/" + divisionId + "/download?api-token=" + connection.access_token);
-        }
-        catch(IOException e)
-        {
-            _exceptionList.add(e.getMessage());
-        }
-        return null;
-    }
-
-    public InputStream DownloadDivisionAsStream(String divisionId)
-    {
-        https://api-stage.bimplus.net/v2/<team_slug>/divisions/<division_id>/download?api-token=token
-
-        try
-        {
-            return connection.sendDownloadRequest( GetV2TeamUrl() + "/divisions/" + divisionId + "/download?api-token=" + connection.access_token);
-        }
-        catch(IOException e)
-        {
-            _exceptionList.add(e.getMessage());
-        }
-        return null;
-
     }
 
     public void SetTeamSlug(String slug)

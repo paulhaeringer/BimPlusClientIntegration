@@ -1,9 +1,7 @@
 package bimplus.api;
 
-import bimplus.data.DtoDivision;
-import bimplus.data.DtoModel;
-import bimplus.data.DtoProject;
-import bimplus.data.DtoTeam;
+import bimplus.api.Wrapper.*;
+import bimplus.data.*;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -26,27 +24,42 @@ public class TestApiCore
 
         // Create the ApiCore
         ApiCore core = new ApiCore("cornelius.preidel@googlemail.com", "germany", host);
-        List<DtoTeam> myTeams = core.GetTeams();
 
-        // Set the Slug
+        if(core.connected == false)
+            return;
+
+        // TEAMS
+        Teams teamsAPI = new Teams(core);
+        List<DtoTeam> myTeams = teamsAPI.GetTeams();
+        // Set a first TeamSlug
         core.SetTeamSlug(myTeams.get(1).GetSlug());
 
-        List<DtoProject> projects = core.GetProjects();
+        // PROJECTS
+        Projects projectAPI = new Projects(core);
+        List<DtoProject> projects = projectAPI.GetProjects();
+        // projectAPI.CreateNewProject("TestProject");
 
-        List<DtoDivision> divisions = core.GetModels(projects.get(0).id);
+        // DIVISIONS
+        Divisions divisionAPI = new Divisions(core);
+        List<DtoDivision> divisions = divisionAPI.GetModels(projects.get(0).GetId());
 
-        DtoDivision division = divisions.get(0);
+        // ISSUES
+        Issues issueAPI = new Issues(core);
+        List<DtoIssue> issues = issueAPI.GetIssues(projects.get(0).id);
 
-        // String model = core.DownloadDivisionAsString(division.GetId());
+        // ATTACHMENTS
+        Attachments attachmentAPI = new Attachments(core);
+        attachmentAPI.GetAttachments(projects.get(0).id);
 
-        // Get a IFC model as Stream and read it to String
-        InputStream stream = core.DownloadDivisionAsStream(division.GetId());
-
+        // DOWNLOAD IFC FILES
+        // as STRING
+        String ifcFile = divisionAPI.DownloadDivisionAsString(divisions.get(0).GetId());
+        // as STREAM
+        InputStream ifcStream = divisionAPI.DownloadDivisionAsStream(divisions.get(0).GetId());
         BufferedReader in = new BufferedReader(
-                new InputStreamReader(stream));
+                new InputStreamReader(ifcStream));
         String inputLine;
         StringBuffer response = new StringBuffer();
-
         try
         {
             while ((inputLine = in.readLine()) != null) {
@@ -58,12 +71,6 @@ public class TestApiCore
         {
 
         }
-
         String result = response.toString();
-
-        // Get the IFC Project
-
-
-
     }
 }
