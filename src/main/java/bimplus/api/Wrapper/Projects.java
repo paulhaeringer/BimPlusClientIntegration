@@ -2,6 +2,8 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtoProject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.List;
  */
 public class Projects extends BaseWrapper
 {
+    private static final Logger LOG = LoggerFactory.getLogger(Projects.class);
+    
     public Projects(ApiCore core)
     {
         super(core);
@@ -26,7 +30,7 @@ public class Projects extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+           LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -41,7 +45,7 @@ public class Projects extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+           LOG.error(e.getMessage(), e);
         }
     }
 }

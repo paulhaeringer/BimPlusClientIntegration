@@ -2,6 +2,8 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtoAttachment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
  */
 public class Attachments extends BaseWrapper
 {
+    private static final Logger LOG = LoggerFactory.getLogger(Attachments.class);
 
     public Attachments(ApiCore core)
     {
@@ -21,13 +24,13 @@ public class Attachments extends BaseWrapper
     {
         try
         {
-            String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectID + "/attachments");
+            String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectID + "/attachmentsTEST");
             List<DtoAttachment> attachments = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoAttachment.class));
             return attachments;
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
 
         return null;
@@ -43,7 +46,7 @@ public class Attachments extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
     }
 }

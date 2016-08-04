@@ -2,6 +2,8 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtoDivision;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +14,8 @@ import java.util.List;
  */
 public class Divisions extends BaseWrapper
 {
+    private static final Logger LOG = LoggerFactory.getLogger(Divisions.class);
+
     public Divisions(ApiCore core)
     {
         super(core);
@@ -27,7 +31,7 @@ public class Divisions extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -42,7 +46,7 @@ public class Divisions extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -58,7 +62,7 @@ public class Divisions extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
         return false;
     }
@@ -73,7 +77,7 @@ public class Divisions extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -86,7 +90,7 @@ public class Divisions extends BaseWrapper
         }
         catch(IOException e)
         {
-            core._exceptionList.add(e.getMessage());
+           LOG.error(e.getMessage(), e);
         }
         return null;
 

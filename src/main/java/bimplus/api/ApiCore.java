@@ -2,6 +2,9 @@ package bimplus.api;
 
 import bimplus.data.*;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +15,8 @@ import java.util.List;
  */
 public class ApiCore
 {
+    private static final Logger LOG = LoggerFactory.getLogger(ApiCore.class);
+
     public Connection connection;
     public List<String> _exceptionList;
     private String teamSlug;
@@ -26,6 +31,7 @@ public class ApiCore
         // Connection
         connection = new Connection();
         connected = connection.Connect(username, password, host);
+
     }
 
     public String GetV2TeamUrl()

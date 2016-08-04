@@ -5,14 +5,19 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 // JSON Stuff
+import bimplus.api.Wrapper.Attachments;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Cornelius on 02.08.2016.
  */
 public class Connection
 {
+    private static final Logger LOG = LoggerFactory.getLogger(Connection.class);
+
     public HttpURLConnection connection;
     public String access_token = "";
     public String AuthorizationTokenType = "BimPlus";
@@ -39,6 +44,7 @@ public class Connection
             return true;
         }
 
+        LOG.error("Login Routine failed!");
         return false;
     }
 
@@ -72,7 +78,8 @@ public class Connection
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e.getMessage());
+            LOG.error(e.getMessage(), e);
+            return null;
         }
         return jsonString.toString();
     }
@@ -107,7 +114,8 @@ public class Connection
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e.getMessage());
+            LOG.error(e.getMessage(), e);
+            return null;
         }
         return jsonString.toString();
     }
@@ -183,9 +191,8 @@ public class Connection
         return response.toString();
     }
 
-
     // TODO
-    public Boolean ValidateToken()
+    public Boolean ValidateToken(String access_token)
     {
         return true;
     }
