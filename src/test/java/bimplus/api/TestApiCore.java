@@ -39,6 +39,9 @@ public class TestApiCore
         Projects projectAPI = new Projects(core);
         List<DtoProject> projects = projectAPI.GetProjects();
 
+        // TOPOLOGY
+        DtoTopology topo = projectAPI.GetProjectTopology(projects.get(0).GetId());
+
         // Create a new project
         // DtoProject project = new DtoProject();
         // project.setName("TestMe!");
@@ -47,6 +50,13 @@ public class TestApiCore
         // DIVISIONS
         Divisions divisionAPI = new Divisions(core);
         List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
+
+        // OBJECTS
+        // Objects objectApi = new Objects(core);
+        // if(divisions.get(0) != null)
+        // {
+        //     DtoTopology topology = objectApi.GetObjects(divisions.get(0).getTopologyDivisionId());
+        // }
 
         // PutDivision - e.g. for a new version of the division
         // DtoDivision division = divisions.get(0);
@@ -91,15 +101,20 @@ public class TestApiCore
         Issues issueAPI = new Issues(core);
         List<DtoIssue> issues = issueAPI.GetIssues(projects.get(0).id);
 
+        // PINS
+        Pins pinApi = new Pins(core);
+        if(issues.get(0) != null)
+        {
+            List<DtoPin> pins = pinApi.GetPins(issues.get(0).GetId());
+        }
+
         // Create an Issue
-        DtoIssue issue = new DtoIssue();
-        issue.setName("This is my Test Issue! jdahesaoiesahrleshrl");
-        issueAPI.CreateIssue(projects.get(0).id, issue);
+        // DtoIssue issue = new DtoIssue();
+        // issue.setName("This is my Test Issue! jdahesaoiesahrleshrl");
+        // issueAPI.CreateIssue(projects.get(0).id, issue);
 
         // ATTACHMENTS
         Attachments attachmentAPI = new Attachments(core);
-        attachmentAPI.GetAttachments(projects.get(0).id);
-
-
+        List<DtoAttachment> attachments = attachmentAPI.GetAttachments(projects.get(0).id);
     }
 }

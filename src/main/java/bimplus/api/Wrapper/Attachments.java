@@ -24,7 +24,7 @@ public class Attachments extends BaseWrapper
     {
         try
         {
-            String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectID + "/attachmentsTEST");
+            String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectID + "/attachments");
             List<DtoAttachment> attachments = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoAttachment.class));
             return attachments;
         }

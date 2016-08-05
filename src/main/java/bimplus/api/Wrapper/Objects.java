@@ -2,9 +2,11 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtObject;
+import bimplus.data.DtoTopology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,19 +21,19 @@ public class Objects extends BaseWrapper
         super(core);
     }
 
-    public List<DtObject> GetObjects(String projectId, String divisionId)
+    public DtoTopology GetObjects(String topologyId)
     {
+        // try
+        // {
+        //     String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/objects/" + topologyId + "/geometries/threejs");
+        //     DtoTopology topology = core.mapper.readValue(json, DtoTopology.class);
+        //     return topology;
+        // }
+        // catch(IOException e)
+        // {
+        //    LOG.error(e.getMessage(), e);
+        // };
+        // return null;
         return null;
-       // try
-       // {
-       //     String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectId + "/divisions/" + divisionId + "/objects");
-       //     List<DtObject> objects = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtObject.class));
-       //     return projects;
-       // }
-       // catch(IOException e)
-       // {
-       //    LOG.error(e.getMessage(), e);
-       // }
-       // return null;
     }
 }

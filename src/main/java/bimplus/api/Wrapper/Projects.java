@@ -2,6 +2,7 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtoProject;
+import bimplus.data.DtoTopology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,5 +48,20 @@ public class Projects extends BaseWrapper
         {
            LOG.error(e.getMessage(), e);
         }
+    }
+
+    public DtoTopology GetProjectTopology(String projectId)
+    {
+        try
+        {
+            String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectId + "/topology");
+            DtoTopology topology = core.mapper.readValue(json, DtoTopology.class);
+            return topology;
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return null;
     }
 }

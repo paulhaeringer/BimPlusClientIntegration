@@ -56,7 +56,6 @@ public class DtObject
 //ORIGINAL LINE: [JsonProperty("elementtyp", NullValueHandling = NullValueHandling.Ignore)] public virtual Guid Elementtyp {get;set;}
     @JsonProperty("elementtyp")
     public String Elementtyp = new String();
-
     public void setElementtyp(String value)
     {
         Elementtyp = value;
@@ -82,8 +81,6 @@ public class DtObject
     /**
      IsParent
      */
-//C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
-//ORIGINAL LINE: [JsonIgnore] public virtual bool IsParent
     @JsonProperty("IsParent")
     private boolean IsParent;
     public boolean getIsParent()
@@ -162,6 +159,4 @@ public class DtObject
     {
         ChunkSize = value;
     }
-
-
 }
