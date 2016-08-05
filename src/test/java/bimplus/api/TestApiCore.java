@@ -2,6 +2,7 @@ package bimplus.api;
 
 import bimplus.api.Wrapper.*;
 import bimplus.data.*;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -46,6 +47,23 @@ public class TestApiCore
         // DtoProject project = new DtoProject();
         // project.setName("TestMe!");
         // projectAPI.CreateNewProject(project);
+
+        // MESSAGE SERVICE
+        // Messages messageApi = new Messages(core);
+        // DtoMessage message = new DtoMessage();
+        // message.setReceiver(projects.get(0).getCreatedByUser());
+        // message.setSender(projects.get(0).getCreatedByUser());
+        // message.setTopic("Hallo Test ");
+        // message.setTimestamp(DateTime.now());
+        // message.setReturnCode("");
+        // message.setSource("");
+        // message.setUnread(true);
+        // message.setAdditionalData("");
+        // message.setUnreadEmail(true);
+        // message.setCorrelationId("");
+        // message.setSeverity("");
+        // message.setUnreadBrowserNotification(true);
+        // messageApi.CreateMessage(message);
 
         // DIVISIONS
         Divisions divisionAPI = new Divisions(core);

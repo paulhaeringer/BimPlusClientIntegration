@@ -39,6 +39,12 @@ public class ApiCore
         return connection.host.getServerName() + "/v2/" + teamSlug;
     }
 
+    public String GetV2Url()
+    {
+        return connection.host.getServerName() + "/v2/";
+    }
+
+
     public void SetTeamSlug(String slug)
     {
         this.teamSlug = slug;

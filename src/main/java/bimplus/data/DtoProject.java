@@ -76,8 +76,6 @@ public class DtoProject extends BaseDto
     }
 
     @JsonProperty("created")
-    // java.time.LocalDateTime
-    // @JsonIgnore
     private DateTime Created = null;
     public DateTime getCreated()
     {
@@ -88,18 +86,16 @@ public class DtoProject extends BaseDto
         Created = value;
     }
 
-    //@JsonProperty("createdby")
-    // type DtoShortUser
-    @JsonIgnore
-    public String createdby;
-    // public String getCreatedByUser()
-    // {
-    //     return createdby;
-    // }
-    // public void setCreatedByUser(String value)
-    // {
-    //     createdby = value;
-    // }
+    @JsonProperty("createdby")
+    private DtoShortUser createdby;
+    public DtoShortUser getCreatedByUser()
+    {
+        return createdby;
+    }
+    public void setCreatedByUser(DtoShortUser value)
+    {
+        createdby = value;
+    }
 
     @JsonProperty("changed")
     private DateTime Changed = null;
@@ -112,18 +108,16 @@ public class DtoProject extends BaseDto
         Changed = value;
     }
 
-    //@JsonProperty("changedby")
-    // type DtoShortUser
-    @JsonIgnore
-    public String changedby;
-    // public String getChangedByUser()
-    // {
-    //     return ChangedByUser;
-    // }
-    // public void setChangedByUser(String value)
-    // {
-    //     ChangedByUser = value;
-    // }
+    @JsonProperty("changedby")
+    private DtoShortUser ChangedByUser;
+    public DtoShortUser getChangedByUser()
+    {
+        return ChangedByUser;
+    }
+    public void setChangedByUser(DtoShortUser value)
+    {
+        ChangedByUser = value;
+    }
 
     @JsonProperty("address")
     private String Address;
