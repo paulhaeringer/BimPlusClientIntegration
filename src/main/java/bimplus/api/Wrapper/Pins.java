@@ -1,8 +1,6 @@
 package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
-import bimplus.data.DtoAttachment;
-import bimplus.data.DtoIssue;
 import bimplus.data.DtoPin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +25,7 @@ public class Pins extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/issues/" + issueId + "/pins");
-            List<DtoPin> pins = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoPin.class));
-            return pins;
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoPin.class));
         }
         catch(IOException e)
         {
@@ -42,8 +39,7 @@ public class Pins extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/pins/" + pinId);
-            DtoPin pin = core.mapper.readValue(json, DtoPin.class);
-            return pin;
+            return core.mapper.readValue(json, DtoPin.class);
         }
         catch(IOException e)
         {

@@ -1,5 +1,5 @@
-/**
- * Created by Cornelius on 02.08.2016.
+/*
+  Created by Cornelius on 02.08.2016.
  */
 package bimplus.api;
 
@@ -28,27 +28,27 @@ public class BimPlusHost
     {
         if (value.contains("api-dev"))
         {
-            setBimPlusEnvironment(BimPlusEnvironment.Dev);
+            setBimPlusEnvironment(ServerName.Dev);
         }
         else if (value.contains("api-stage"))
         {
-            setBimPlusEnvironment(BimPlusEnvironment.Stage);
+            setBimPlusEnvironment(ServerName.Stage);
         }
         else if (value.contains("localhost"))
         {
-            setBimPlusEnvironment(BimPlusEnvironment.LocalHost);
+            setBimPlusEnvironment(ServerName.LocalHost);
         }
         else
         {
-            setBimPlusEnvironment(BimPlusEnvironment.Prod);
+            setBimPlusEnvironment(ServerName.Prod);
         }
     }
 
     /**
      Save the short server name.
      */
-    private ServerName BimPlusEnvironment = getBimPlusEnvironment().values()[0];
-    public final ServerName getBimPlusEnvironment()
+    private ServerName BimPlusEnvironment = ServerName.values()[0];
+    private ServerName getBimPlusEnvironment()
     {
         return BimPlusEnvironment;
     }

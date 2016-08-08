@@ -1,7 +1,6 @@
 package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
-import bimplus.data.DtoIssue;
 import bimplus.data.DtoMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Cornelius on 05.08.2016.
  */
-public class Messages extends BaseWrapper
+class Messages extends BaseWrapper
 {
     private static final Logger LOG = LoggerFactory.getLogger(Issues.class);
 

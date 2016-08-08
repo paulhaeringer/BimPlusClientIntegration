@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -25,8 +26,7 @@ public class Attachments extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectID + "/attachments");
-            List<DtoAttachment> attachments = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoAttachment.class));
-            return attachments;
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoAttachment.class));
         }
         catch(IOException e)
         {
@@ -36,7 +36,7 @@ public class Attachments extends BaseWrapper
         return null;
     }
 
-    public void CreateAttachment(String projectID, DtoAttachment attachment)
+    public void CreateAttachment(DtoAttachment attachment)
     {
         try
         {
@@ -48,5 +48,18 @@ public class Attachments extends BaseWrapper
         {
             LOG.error(e.getMessage(), e);
         }
+    }
+
+    public InputStream DownloadAttachment(String attachmentId)
+    {
+        try
+        {
+            return core.connection.sendDownloadRequest( core.GetV2TeamUrl() + "/attachments/" + attachmentId);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return null;
     }
 }

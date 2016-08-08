@@ -12,7 +12,7 @@ public class DtoMessage
      Unique ID of the message
      */
     @JsonProperty("id")
-    private String Id = new String();
+    private String Id = "";
     public String getId()
     {
         return Id;
@@ -26,7 +26,7 @@ public class DtoMessage
      The target user id
      */
     @JsonProperty("userId")
-    private String UserId = new String();
+    private String UserId = "";
     public String getUserId()
     {
         return UserId;

@@ -25,8 +25,7 @@ public class Issues extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectID + "/issues");
-            List<DtoIssue> issues = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoIssue.class));
-            return issues;
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoIssue.class));
         }
         catch(IOException e)
         {

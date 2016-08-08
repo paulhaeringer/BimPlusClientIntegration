@@ -7,7 +7,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  */
 public abstract class BaseDto
 {
-    public String id;
+    public final String id = null;
     @JsonProperty("id")
     public String GetId() { return id; }
 }

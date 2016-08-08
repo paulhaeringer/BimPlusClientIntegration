@@ -11,7 +11,7 @@ public class DtoShortUser extends BaseDto
      The unique identifier of the user
      */
     @JsonProperty("id")
-    private String Id = new String();
+    private String Id = "";
     public String getId()
     {
         return Id;

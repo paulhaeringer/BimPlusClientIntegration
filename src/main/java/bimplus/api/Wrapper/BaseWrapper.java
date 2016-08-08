@@ -1,7 +1,7 @@
 package bimplus.api.Wrapper;
 
-/**
- * Created by Cornelius on 03.08.2016.
+/*
+  Created by Cornelius on 03.08.2016.
  */
 
 import bimplus.api.ApiCore;
@@ -9,18 +9,18 @@ import bimplus.api.ApiCore;
 /**
  Base wrapper.
  */
-public class BaseWrapper
+class BaseWrapper
 {
-    protected BaseWrapper()
+    BaseWrapper()
     {
     }
 
-    public BaseWrapper(ApiCore apiCore)
+    BaseWrapper(ApiCore apiCore)
     {
         core = apiCore;
         // TeamSession = apiCore.TeamSession;
     }
 
-    protected ApiCore core;
+    ApiCore core;
     // protected TeamSession TeamSession;
 }

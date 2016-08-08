@@ -1,6 +1,5 @@
 package bimplus.data;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.joda.time.DateTime;
 
@@ -10,7 +9,7 @@ import org.joda.time.DateTime;
 public class DtoPin extends BaseDto
 {
     @JsonProperty("issueId")
-    private String IssueId = new String();
+    private String IssueId = "";
     public final String getIssueId()
     {
         return IssueId;
@@ -21,7 +20,7 @@ public class DtoPin extends BaseDto
     }
 
     @JsonProperty("objectId")
-    private String ObjectId = new String();
+    private String ObjectId = "";
     public final String getObjectId()
     {
         return ObjectId;
@@ -54,7 +53,7 @@ public class DtoPin extends BaseDto
     }
 
     @JsonProperty("normalVector")
-    public DtoPosition NormalVector;
+    private DtoPosition NormalVector;
     public final DtoPosition getNormalVector()
     {
         return NormalVector;

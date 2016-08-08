@@ -20,7 +20,7 @@ public class DtoAttachment extends BaseDto
     private List<String> ObjectIds;
     public List<String> getObjectIds()
     {
-        return new ArrayList<String>(Arrays.asList(new String[] {getRelatedId()}));
+        return new ArrayList<>(Arrays.asList(new String[]{getRelatedId()}));
     }
 
     @JsonProperty("Name")
@@ -132,7 +132,7 @@ public class DtoAttachment extends BaseDto
     // Type AttachmentType
     // @JsonIgnore
     @JsonProperty("attachmentType")
-    public String attachmentType = null;
+    private String attachmentType = null;
     public String getAttachmentType()
     {
         return attachmentType;
@@ -195,8 +195,8 @@ public class DtoAttachment extends BaseDto
     }
 
     @JsonProperty("relatedId")
-    private String RelatedId = new String();
-    public final String getRelatedId()
+    private String RelatedId = "";
+    private String getRelatedId()
     {
         return RelatedId;
     }

@@ -36,7 +36,7 @@ public class DtoDivision extends BaseDto
     /** ProjectId
      */
     @JsonProperty("projectId")
-    private String ProjectId = new String();
+    private String ProjectId = "";
     public String getProjectId()
     {
         return ProjectId;

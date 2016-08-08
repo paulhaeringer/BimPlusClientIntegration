@@ -1,5 +1,5 @@
-/**
- * Created by Cornelius on 02.08.2016.
+/*
+  Created by Cornelius on 02.08.2016.
  */
 package bimplus.api;
 

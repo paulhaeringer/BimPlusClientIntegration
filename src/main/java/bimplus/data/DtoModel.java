@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Cornelius on 03.08.2016.
  */
-public class DtoModel extends BaseDto
+class DtoModel extends BaseDto
 {
     /** ElementCount
      */

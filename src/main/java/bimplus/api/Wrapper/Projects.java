@@ -26,8 +26,7 @@ public class Projects extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects");
-            List<DtoProject> projects = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoProject.class));
-            return projects;
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoProject.class));
         }
         catch(IOException e)
         {
@@ -55,8 +54,7 @@ public class Projects extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectId + "/topology");
-            DtoTopology topology = core.mapper.readValue(json, DtoTopology.class);
-            return topology;
+            return core.mapper.readValue(json, DtoTopology.class);
         }
         catch(IOException e)
         {

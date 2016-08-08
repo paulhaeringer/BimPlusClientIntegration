@@ -26,8 +26,7 @@ public class Divisions extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/projects/" + projectId + "/divisions");
-            List<DtoDivision> models = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoDivision.class));
-            return models;
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoDivision.class));
         }
         catch(IOException e)
         {
@@ -41,8 +40,7 @@ public class Divisions extends BaseWrapper
         try
         {
             String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/divisions/" + divisionId);
-            DtoDivision division = core.mapper.readValue(json, DtoDivision.class);
-            return division;
+            return core.mapper.readValue(json, DtoDivision.class);
         }
         catch(IOException e)
         {
@@ -94,5 +92,12 @@ public class Divisions extends BaseWrapper
         }
         return null;
 
+    }
+
+    public void ExportModelAsIFC(String projectId, String divisionID)
+    {
+            // Convert to JSON
+            // String jsonInString = core.mapper.writeValueAsString(issue);
+            String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects/" + projectId + "/model/" + divisionID + "/exportasync", "");
     }
 }

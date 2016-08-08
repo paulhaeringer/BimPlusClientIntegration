@@ -1,22 +1,18 @@
 package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
-import bimplus.data.DtObject;
 import bimplus.data.DtoTopology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.List;
-
 /**
  * Created by Cornelius on 03.08.2016.
  */
-public class Objects extends BaseWrapper
+class Objects extends BaseWrapper
 {
     private static final Logger LOG = LoggerFactory.getLogger(Objects.class);
     
-    public Objects(ApiCore core)
+    private Objects(ApiCore core)
     {
         super(core);
     }

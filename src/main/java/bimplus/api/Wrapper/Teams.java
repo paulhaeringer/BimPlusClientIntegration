@@ -27,8 +27,7 @@ public class Teams extends BaseWrapper
             String json = core.connection.sendGetRequest( core.connection.host.getServerName() + "/v2/teams");
             // Mapping mechanism
             // ObjectMapper mapper = new ObjectMapper();
-            java.util.List<bimplus.data.DtoTeam> teams = core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, bimplus.data.DtoTeam.class));
-            return teams;
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoTeam.class));
         }
         catch(IOException e)
         {

@@ -8,13 +8,13 @@ import java.util.List;
 /**
  * Created by Cornelius on 03.08.2016.
  */
-public class DtObject
+class DtObject
 {
     /**
      Id
      */
     @JsonProperty("id")
-    private String Id = new String();
+    private String Id = "";
     public final String getId()
     {
         return Id;
@@ -42,7 +42,7 @@ public class DtObject
      Type
      */
     @JsonProperty("type")
-    public String Type = new String();
+    public String Type = "";
     public String getType()
     {
         return this.getClass().getName();
@@ -55,7 +55,7 @@ public class DtObject
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [JsonProperty("elementtyp", NullValueHandling = NullValueHandling.Ignore)] public virtual Guid Elementtyp {get;set;}
     @JsonProperty("elementtyp")
-    public String Elementtyp = new String();
+    private String Elementtyp = "";
     public void setElementtyp(String value)
     {
         Elementtyp = value;
@@ -65,7 +65,7 @@ public class DtObject
      LayerId
      */
     @JsonProperty("layerid")
-    private String LayerId = new String();
+    private String LayerId = "";
     public String getLayerId()
     {
         return null;
@@ -76,7 +76,7 @@ public class DtObject
      ObjectName
      */
     @JsonProperty("ObjectName")
-    private String ObjectName = new String();
+    private String ObjectName = "";
     // public abstract String getObjectName();
     /**
      IsParent
@@ -109,7 +109,7 @@ public class DtObject
      */
     @JsonProperty("children")
     private List<DtObject> Children;
-    public final List<DtObject> getChildren()
+    private List<DtObject> getChildren()
     {
         return Children;
     }

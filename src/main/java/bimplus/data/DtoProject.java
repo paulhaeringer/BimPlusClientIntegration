@@ -196,7 +196,7 @@ public class DtoProject extends BaseDto
     //@JsonProperty("disciplines")
     // type DtoProjectDiscipline
     @JsonIgnore
-    private Iterable<String> Disciplines;
+    public Iterable<String> Disciplines;
     public Iterable<String> getDisciplines()
     {
         return Disciplines;

@@ -1,6 +1,5 @@
 package bimplus.data;
 
-import bimplus.api.Wrapper.BaseWrapper;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;

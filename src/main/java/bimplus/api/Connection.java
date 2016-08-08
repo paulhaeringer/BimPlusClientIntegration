@@ -2,10 +2,8 @@ package bimplus.api;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 // JSON Stuff
-import bimplus.api.Wrapper.Attachments;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.slf4j.Logger;
@@ -18,9 +16,9 @@ public class Connection
 {
     private static final Logger LOG = LoggerFactory.getLogger(Connection.class);
 
-    public HttpURLConnection connection;
+    private HttpURLConnection connection;
     public String access_token = "";
-    public String AuthorizationTokenType = "BimPlus";
+    private final String AuthorizationTokenType = "BimPlus";
     public BimPlusHost host;
 
     public Boolean Connect(String username, String password, BimPlusHost _host)
@@ -32,6 +30,9 @@ public class Connection
         // String requestUrl= host + "https://api-dev.bimplus.net/v2/authorize";
         String requestUrl= host.getServerName() + "/v2/authorize";
         String jsonString = sendPostRequest(requestUrl, payload);
+
+        if(jsonString == null)
+            return false;
 
         // Analyse the access token
         JSONTokener token = new JSONTokener(jsonString);
@@ -60,6 +61,7 @@ public class Connection
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
+
             if(access_token != null)
                 connection.setRequestProperty("Authorization", "BimPlus " + access_token);
 

@@ -2,37 +2,32 @@ package bimplus.data;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.deser.ValueInstantiators;
 
 /**
  * Created by Cornelius on 02.08.2016.
  */
-public class DtoTeam extends BaseDto {
-    public String slug;
-    // public String id;
-    public String name;
-    public String displayname;
-    public String owner;
-
+public class DtoTeam extends BaseDto
+{
     @JsonProperty("slug")
+    public String slug = null;
     public String GetSlug() {
         return slug;
     }
 
-    // @JsonProperty("id")
-    // public String GetId() { return id; }
-
     @JsonProperty("name")
+    private String name = null;
     public String GetName() {
         return name;
     }
 
     @JsonProperty("displayname")
+    private String displayname = null;
     public String GetDisplayName() {
         return displayname;
     }
 
     @JsonProperty("owner")
+    private String owner = null;
     public String GetOwner() {
         return owner;
     }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Cornelius on 03.08.2016.
  */
-public class DtoBaseIssue extends BaseDto
+class DtoBaseIssue extends BaseDto
 {
     /** ShortId
      */
@@ -25,7 +25,7 @@ public class DtoBaseIssue extends BaseDto
     /** ProjectId
      */
     @JsonProperty("projectId")
-    private String ProjectId = new String();
+    private String ProjectId = "";
     public String getProjectId()
     {
         return ProjectId;
@@ -111,7 +111,7 @@ public class DtoBaseIssue extends BaseDto
     // @JsonProperty("type")
     // Type IssueType
     @JsonIgnore
-    private String Type;
+    public String Type;
     public String getType()
     {
         return Type;

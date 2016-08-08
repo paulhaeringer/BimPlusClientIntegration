@@ -1,13 +1,11 @@
 package bimplus.api;
 
-import bimplus.data.*;
+import bimplus.data.DtoTeam;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -17,10 +15,10 @@ public class ApiCore
 {
     private static final Logger LOG = LoggerFactory.getLogger(ApiCore.class);
 
-    public Connection connection;
+    public final Connection connection;
     public List<String> _exceptionList;
-    private String teamSlug;
-    public ObjectMapper mapper;
+    public DtoTeam currentTeam;
+    public final ObjectMapper mapper;
     public Boolean connected = false;
 
     public ApiCore(String username, String password, BimPlusHost host)
@@ -36,18 +34,12 @@ public class ApiCore
 
     public String GetV2TeamUrl()
     {
-        return connection.host.getServerName() + "/v2/" + teamSlug;
+        return connection.host.getServerName() + "/v2/" + currentTeam.GetSlug();
     }
 
     public String GetV2Url()
     {
         return connection.host.getServerName() + "/v2/";
-    }
-
-
-    public void SetTeamSlug(String slug)
-    {
-        this.teamSlug = slug;
     }
 }
 

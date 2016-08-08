@@ -2,7 +2,6 @@ package bimplus.api;
 
 import bimplus.api.Wrapper.*;
 import bimplus.data.*;
-import org.joda.time.DateTime;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -17,6 +16,7 @@ import java.util.List;
  */
 public class TestApiCore
 {
+
     @Test
     public void TestApiCore()
     {
@@ -34,7 +34,8 @@ public class TestApiCore
         Teams teamsAPI = new Teams(core);
         List<DtoTeam> myTeams = teamsAPI.GetTeams();
         // Set a first TeamSlug
-        core.SetTeamSlug(myTeams.get(1).GetSlug());
+        core.currentTeam = myTeams.get(1);
+        // core.SetTeamSlug(myTeams.get(1).GetSlug());
 
         // PROJECTS
         Projects projectAPI = new Projects(core);
@@ -82,9 +83,12 @@ public class TestApiCore
         // divisionAPI.PutDivision(division.GetId(), division);
 
         // Get the IFC Projects ...
-        List<DtoDivision> ifcProjects = new ArrayList<DtoDivision>();
+        List<DtoDivision> ifcProjects = new ArrayList<>();
         for (DtoDivision item : divisions)
         {
+            // Call the IFC EXPORT Function ...
+            // divisionAPI.ExportModelAsIFC(item.getProjectId(), item.id);
+
             if (item.getInputType().equals("IFC_IMPORT"))
             {
                 ifcProjects.add(item);
