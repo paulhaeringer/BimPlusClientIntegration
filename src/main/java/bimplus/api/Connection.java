@@ -149,6 +149,28 @@ public class Connection
         return response.toString();
     }
 
+    public Boolean sendDeleteRequest(String requestUrl) throws IOException
+    {
+        URL url = new URL(requestUrl);
+        connection = (HttpURLConnection) url.openConnection();
+
+        // optional default is GET
+        connection.setRequestMethod("DELETE");
+        connection.setRequestProperty("Authorization", AuthorizationTokenType + " " + access_token);
+
+        int responseCode = connection.getResponseCode();
+
+        LOG.info("\nSending 'DELETE' request to URL : " + url);
+        LOG.info("Response Code : " + responseCode);
+
+        // System.out.println("\nSending 'DELETE' request to URL : " + url);
+        // System.out.println("Response Code : " + responseCode);
+
+        if(responseCode == 200)
+            return true;
+        return false;
+    }
+
     public InputStream sendDownloadRequest(String requestUrl) throws IOException
     {
         URL url = new URL(requestUrl);

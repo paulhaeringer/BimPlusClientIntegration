@@ -16,15 +16,17 @@ public class LoginSettings
     public String password;
     public String username;
     public String serverName;
+    public Boolean rememberMe;
 
     public LoginSettings()
     {
     }
 
-    public void SaveLoginSettings(String _username, String _password, BimPlusHost _host)
+    public void SaveLoginSettings(String _username, String _password, BimPlusHost _host, Boolean _rememberMe)
     {
         password = _password;
         username = _username;
+        rememberMe = _rememberMe;
         serverName = _host.getServerName();
 
         try
@@ -34,6 +36,7 @@ public class LoginSettings
             saveProps.setProperty("username", username);
             saveProps.setProperty("password", password);
             saveProps.setProperty("serverName", serverName);
+            saveProps.setProperty("rememberMe", rememberMe.toString());
             saveProps.storeToXML(new FileOutputStream("settings.xml"), "");
 
         } catch (IOException e) {
@@ -51,7 +54,7 @@ public class LoginSettings
             username = loadProps.getProperty("username");
             password = loadProps.getProperty("password");
             serverName = loadProps.getProperty("serverName");
-
+            rememberMe = Boolean.valueOf(loadProps.getProperty("FileOutputStream"));
             return true;
 
         } catch (IOException e) {
