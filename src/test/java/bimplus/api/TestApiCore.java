@@ -20,48 +20,91 @@ public class TestApiCore
     @Test
     public void TestApiCore()
     {
-        // Set the host
+        // ----- CONNECT TO BIM+ -----
         BimPlusHost host = new BimPlusHost();
         host.setBimPlusEnvironment(ServerName.Dev);
-
-        // Create the ApiCore
         ApiCore core = new ApiCore("cornelius.preidel@googlemail.com", "germany", host);
-
         if(core.connected == false)
             return;
 
-        // TEAMS
+        // ----- TEAMS -----
         Teams teamsAPI = new Teams(core);
         List<DtoTeam> myTeams = teamsAPI.GetTeams();
-        // Set a first TeamSlug
+        // Set a first Team for the slug
         core.currentTeam = myTeams.get(1);
-        // core.SetTeamSlug(myTeams.get(1).GetSlug());
 
-        // PROJECTS
+        // ----- PROJECTS -----
         Projects projectAPI = new Projects(core);
         List<DtoProject> projects = projectAPI.GetProjects();
 
-        // PROJECTS
         // Create a new project
         DtoProject project = new DtoProject();
-        project.setName("TestMe!");
+        project.setName("TESTPROJECT");
         projectAPI.CreateNewProject(project);
-        // projectAPI.DeleteProject(project.GetId());
 
-        // TOPOLOGY
+        // Update projects
+        projects = projectAPI.GetProjects();
+
+        // Delete the Project
+        for (DtoProject iterator: projects)
+        {
+            if(iterator.getName().equals("TESTPROJECT"))
+                projectAPI.DeleteProject(iterator.GetId());
+        }
+
+        // ----- TOPOLOGY -----
         DtoTopology topo = projectAPI.GetProjectTopology(projects.get(0).GetId());
 
-        // DIVISIONS
+        // ----- DIVISIONS -----
         Divisions divisionAPI = new Divisions(core);
-        List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(1).GetId());
+        List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
 
         DtoDivision newDivision = new DtoDivision();
-        newDivision.setName("This is my new Model");
-
+        newDivision.setName("TESTMODEL");
         divisionAPI.CreateNewDivision(projects.get(0).id, newDivision);
-        // divisionAPI.DeleteDivision(newDivision.GetId());
 
-        // OBJECTS
+        divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
+
+        for (DtoDivision iterator: divisions)
+        {
+            if(iterator.getName().equals("TESTMODEL"))
+                divisionAPI.DeleteDivision(iterator.GetId());
+        }
+
+        // IFC Models/Divisions
+        List<DtoDivision> ifcProjects = new ArrayList<>();
+        for (DtoDivision item : divisions)
+        {
+            // Create IFC4 File of the division
+            // divisionAPI.ExportModelAsIFC(item.getProjectId(), item.id);
+
+            if (item.getInputType().equals("IFC_IMPORT"))
+            {
+                ifcProjects.add(item);
+            }
+        }
+        // Download IFC files
+        // as string
+            //String ifcFile = divisionAPI.DownloadDivisionAsString(divisions.get(0).GetId());
+        // as stream
+            //InputStream ifcStream = divisionAPI.DownloadDivisionAsStream(divisions.get(0).GetId());
+            //BufferedReader in = new BufferedReader(new InputStreamReader(ifcStream));
+            //String inputLine;
+            //StringBuffer response = new StringBuffer();
+            //try
+            //{
+            //    while ((inputLine = in.readLine()) != null)
+            //    {
+            //        response.append(inputLine);
+            //    }
+            //    in.close();
+            //}
+            //catch (IOException e )
+            //{
+            //}
+            //String result = response.toString();
+
+        // ----- OBJECTS -----
         // Objects objectApi = new Objects(core);
         // if(divisions.get(0) != null)
         // {
@@ -73,62 +116,30 @@ public class TestApiCore
         // division.setName(division.getName() + "_newVersionBySMC");
         // divisionAPI.PutDivision(division.GetId(), division);
 
-        // Get the IFC Projects ...
-        List<DtoDivision> ifcProjects = new ArrayList<>();
-        for (DtoDivision item : divisions)
-        {
-            // Call the IFC EXPORT Function ...
-            divisionAPI.ExportModelAsIFC(item.getProjectId(), item.id);
-
-            if (item.getInputType().equals("IFC_IMPORT"))
-            {
-                ifcProjects.add(item);
-            }
-        }
-
-
-        // DOWNLOAD IFC FILES
-        // as STRING
-        String ifcFile = divisionAPI.DownloadDivisionAsString(divisions.get(0).GetId());
-        // as STREAM
-        InputStream ifcStream = divisionAPI.DownloadDivisionAsStream(divisions.get(0).GetId());
-        BufferedReader in = new BufferedReader(new InputStreamReader(ifcStream));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        try
-        {
-            while ((inputLine = in.readLine()) != null)
-            {
-                response.append(inputLine);
-            }
-            in.close();
-        }
-        catch (IOException e )
-        {
-
-        }
-        String result = response.toString();
-
-
-        // ISSUES
+        // ----- ISSUES -----
         Issues issueAPI = new Issues(core);
         List<DtoIssue> issues = issueAPI.GetIssues(projects.get(0).id);
 
-        // PINS
+        DtoIssue newIssue = new DtoIssue();
+        newIssue.setName("TESTISSUE");
+        issueAPI.CreateIssue(projects.get(0).id, newIssue);
+
+        issues = issueAPI.GetIssues(projects.get(0).id);
+
+        for (DtoIssue iterator: issues)
+        {
+            if(iterator.getName().equals("TESTISSUE"))
+                issueAPI.DeleteIssue(iterator.GetId());
+        }
+
+        // ----- PINS -----
         Pins pinApi = new Pins(core);
         if(issues.get(0) != null)
         {
             List<DtoPin> pins = pinApi.GetPins(issues.get(0).GetId());
         }
 
-        // Create an Issue
-        DtoIssue issue = new DtoIssue();
-        issue.setName("This is my Test Issue!");
-        issueAPI.CreateIssue(projects.get(0).id, issue);
-
-        // issueAPI.DeleteIssue(issue.GetId());
-
-        // ATTACHMENTS
+        // ----- ATTACHMENTS -----
         Attachments attachmentAPI = new Attachments(core);
         List<DtoAttachment> attachments = attachmentAPI.GetAttachments(projects.get(0).id);
     }
