@@ -49,6 +49,20 @@ public class Projects extends BaseWrapper
         }
     }
 
+    public Boolean DeleteProject(String projectId)
+    {
+        try
+        {
+            // Convert to JSON
+            return core.connection.sendDeleteRequest(core.GetV2TeamUrl() + "/projects/" + projectId);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return false;
+    }
+
     public DtoTopology GetProjectTopology(String projectId)
     {
         try

@@ -47,4 +47,18 @@ public class Issues extends BaseWrapper
            LOG.error(e.getMessage(), e);
         }
     }
+
+    public Boolean DeleteIssue(String issueId)
+    {
+        try
+        {
+            // Convert to JSON
+            return core.connection.sendDeleteRequest(core.GetV2TeamUrl() + "/issues/" + issueId);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return false;
+    }
 }

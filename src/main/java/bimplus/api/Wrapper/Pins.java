@@ -47,4 +47,18 @@ public class Pins extends BaseWrapper
         }
         return null;
     }
+
+    public Boolean DeletePin(String pinId)
+    {
+        try
+        {
+            // Convert to JSON
+            return core.connection.sendDeleteRequest(core.GetV2TeamUrl() + "/pins/" + pinId);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return false;
+    }
 }

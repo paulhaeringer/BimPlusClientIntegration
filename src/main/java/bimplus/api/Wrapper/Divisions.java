@@ -49,6 +49,33 @@ public class Divisions extends BaseWrapper
         return null;
     }
 
+    public void CreateNewDivision(String projectId, DtoDivision division)
+    {
+        try
+        {
+            // Convert to JSON
+            String jsonInString = core.mapper.writeValueAsString(division);
+            String json = core.connection.sendPostRequest(core.GetV2TeamUrl() + "/projects/" + projectId + "/divisions", jsonInString);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    public Boolean DeleteDivision(String divisionId)
+    {
+        try
+        {
+            return core.connection.sendDeleteRequest(core.GetV2TeamUrl() + "/divisions/" + divisionId);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return false;
+    }
+
     public boolean PutDivision(String divisionId, DtoDivision division)
     {
         try

@@ -180,6 +180,7 @@ public class Connection
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Content-Type", "octet-stream");
         connection.setRequestProperty("Authorization", AuthorizationTokenType + " " + access_token);
+        connection.setDoInput(true);
 
         int responseCode = connection.getResponseCode();
         System.out.println("\nSending 'GET' request to URL : " + url);
@@ -190,7 +191,6 @@ public class Connection
 
     public String sendHeadRequest(String requestUrl) throws IOException
     {
-
         URL url = new URL(requestUrl);
         connection = (HttpURLConnection) url.openConnection();
 

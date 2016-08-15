@@ -41,34 +41,25 @@ public class TestApiCore
         Projects projectAPI = new Projects(core);
         List<DtoProject> projects = projectAPI.GetProjects();
 
+        // PROJECTS
+        // Create a new project
+        DtoProject project = new DtoProject();
+        project.setName("TestMe!");
+        projectAPI.CreateNewProject(project);
+        // projectAPI.DeleteProject(project.GetId());
+
         // TOPOLOGY
         DtoTopology topo = projectAPI.GetProjectTopology(projects.get(0).GetId());
 
-        // Create a new project
-        // DtoProject project = new DtoProject();
-        // project.setName("TestMe!");
-        // projectAPI.CreateNewProject(project);
-
-        // MESSAGE SERVICE
-        // Messages messageApi = new Messages(core);
-        // DtoMessage message = new DtoMessage();
-        // message.setReceiver(projects.get(0).getCreatedByUser());
-        // message.setSender(projects.get(0).getCreatedByUser());
-        // message.setTopic("Hallo Test ");
-        // message.setTimestamp(DateTime.now());
-        // message.setReturnCode("");
-        // message.setSource("");
-        // message.setUnread(true);
-        // message.setAdditionalData("");
-        // message.setUnreadEmail(true);
-        // message.setCorrelationId("");
-        // message.setSeverity("");
-        // message.setUnreadBrowserNotification(true);
-        // messageApi.CreateMessage(message);
-
         // DIVISIONS
         Divisions divisionAPI = new Divisions(core);
-        List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
+        List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(1).GetId());
+
+        DtoDivision newDivision = new DtoDivision();
+        newDivision.setName("This is my new Model");
+
+        divisionAPI.CreateNewDivision(projects.get(0).id, newDivision);
+        // divisionAPI.DeleteDivision(newDivision.GetId());
 
         // OBJECTS
         // Objects objectApi = new Objects(core);
@@ -87,7 +78,7 @@ public class TestApiCore
         for (DtoDivision item : divisions)
         {
             // Call the IFC EXPORT Function ...
-            // divisionAPI.ExportModelAsIFC(item.getProjectId(), item.id);
+            divisionAPI.ExportModelAsIFC(item.getProjectId(), item.id);
 
             if (item.getInputType().equals("IFC_IMPORT"))
             {
@@ -131,9 +122,11 @@ public class TestApiCore
         }
 
         // Create an Issue
-        // DtoIssue issue = new DtoIssue();
-        // issue.setName("This is my Test Issue! jdahesaoiesahrleshrl");
-        // issueAPI.CreateIssue(projects.get(0).id, issue);
+        DtoIssue issue = new DtoIssue();
+        issue.setName("This is my Test Issue!");
+        issueAPI.CreateIssue(projects.get(0).id, issue);
+
+        // issueAPI.DeleteIssue(issue.GetId());
 
         // ATTACHMENTS
         Attachments attachmentAPI = new Attachments(core);

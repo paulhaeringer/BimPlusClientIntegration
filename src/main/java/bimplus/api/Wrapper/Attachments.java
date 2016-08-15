@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 /**
@@ -50,11 +51,24 @@ public class Attachments extends BaseWrapper
         }
     }
 
+    public Boolean DeleteAttachment(String attachmentId)
+    {
+        try
+        {
+            return core.connection.sendDeleteRequest(core.GetV2TeamUrl() + "/attachments/" + attachmentId);
+        }
+        catch(IOException e)
+        {
+            LOG.error(e.getMessage(), e);
+        }
+        return false;
+    }
+
     public InputStream DownloadAttachment(String attachmentId)
     {
         try
         {
-            return core.connection.sendDownloadRequest( core.GetV2TeamUrl() + "/attachments/" + attachmentId);
+            return core.connection.sendDownloadRequest( core.GetV2TeamUrl() + "/attachments/" + attachmentId + "/download");
         }
         catch(IOException e)
         {
