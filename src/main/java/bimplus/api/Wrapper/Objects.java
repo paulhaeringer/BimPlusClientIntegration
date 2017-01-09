@@ -9,6 +9,7 @@ package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
 import bimplus.data.DtoTopology;
+import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,11 +18,11 @@ import java.io.IOException;
 /**
  * Created by Cornelius on 03.08.2016.
  */
-class Objects extends BaseWrapper
+public class Objects extends BaseWrapper
 {
     private static final Logger LOG = LoggerFactory.getLogger(Objects.class);
     
-    private Objects(ApiCore core)
+    public Objects(ApiCore core)
     {
         super(core);
     }
@@ -42,15 +43,17 @@ class Objects extends BaseWrapper
         return null;
     }
 
-    public String GetObjectsAsExcel(String projectId, String elementTypeId)
+    public String GetObjectsAsExcelAttachment(String projectId, String elementTypeId)
     {
         // Get the Excel Sheet for a specific element type
         // https://api-stage.bimplus.net/v2/<team_slug>/projects/<project_id>/objects/export/excel?typeId=<elementType_guid>
         try
         {
             String json = core.connection.sendGetRequest(core.GetV2TeamUrl() + "/projects/" + projectId + "/objects/export/excel?typeId=" + elementTypeId);
-            String attachmentId = core.mapper.readValue(json, String.class);
-            return attachmentId;
+
+            JsonNode node = core.mapper.readTree(json);
+            JsonNode jsonid = node.get("attachment_id");
+            return jsonid.asText();
         }
         catch(IOException e)
         {

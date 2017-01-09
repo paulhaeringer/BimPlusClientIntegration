@@ -65,6 +65,16 @@ public class TestApiCore
         // ----- TOPOLOGY -----
         DtoTopology topo = projectAPI.GetProjectTopology(projects.get(0).GetId());
 
+        // ---- Export to Excel Test
+        Objects objectAPI = new Objects(core);
+        String result = objectAPI.GetObjectsAsExcelAttachment(projects.get(0).GetId(), elementTypes.get(62).GetId());
+
+        // ----- ATTACHMENTS -----
+        Attachments attachmentAPI = new Attachments(core);
+        InputStream stream = attachmentAPI.DownloadAttachment(result);
+
+        // List<DtoAttachment> attachments = attachmentAPI.GetAttachments(projects.get(0).id);
+
         // ----- DIVISIONS -----
         Divisions divisionAPI = new Divisions(core);
         List<DtoDivision> divisions = divisionAPI.GetDivisions(projects.get(0).GetId());
@@ -148,9 +158,5 @@ public class TestApiCore
         {
             List<DtoPin> pins = pinApi.GetPins(issues.get(0).GetId());
         }
-
-        // ----- ATTACHMENTS -----
-        Attachments attachmentAPI = new Attachments(core);
-        List<DtoAttachment> attachments = attachmentAPI.GetAttachments(projects.get(0).id);
     }
 }
