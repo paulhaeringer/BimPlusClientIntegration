@@ -6,7 +6,6 @@
  */
 
 package bimplus.api;
-
 import bimplus.api.Wrapper.*;
 import bimplus.data.*;
 import org.junit.Test;
@@ -39,6 +38,10 @@ public class TestApiCore
         List<DtoTeam> myTeams = teamsAPI.GetTeams();
         // Set a first Team for the slug
         core.currentTeam = myTeams.get(1);
+
+        // ----- ELEMENT Types -----
+        ElementTypes elementTypesAPI = new ElementTypes(core);
+        List<DtoElementType> elementTypes = elementTypesAPI.GetElementTypes();
 
         // ----- PROJECTS -----
         Projects projectAPI = new Projects(core);

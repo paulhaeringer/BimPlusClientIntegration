@@ -8,54 +8,38 @@
 package bimplus.api.Wrapper;
 
 import bimplus.api.ApiCore;
-import bimplus.data.DtoTopology;
+import bimplus.data.DtoElementType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Cornelius on 03.08.2016.
  */
-class Objects extends BaseWrapper
+public class ElementTypes extends BaseWrapper
 {
-    private static final Logger LOG = LoggerFactory.getLogger(Objects.class);
-    
-    private Objects(ApiCore core)
+    private static final Logger LOG = LoggerFactory.getLogger(ElementTypes.class);
+
+    public ElementTypes(ApiCore core)
     {
         super(core);
     }
 
-    public DtoTopology GetObjects(String topologyId)
+    public List<DtoElementType> GetElementTypes()
     {
-        // try
-        // {
-        //     String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/objects/" + topologyId + "/geometries/threejs");
-        //     DtoTopology topology = core.mapper.readValue(json, DtoTopology.class);
-        //     return topology;
-        // }
-        // catch(IOException e)
-        // {
-        //    LOG.error(e.getMessage(), e);
-        // };
-        // return null;
-        return null;
-    }
-
-    public String GetObjectsAsExcel(String projectId, String elementTypeId)
-    {
-        // Get the Excel Sheet for a specific element type
-        // https://api-stage.bimplus.net/v2/<team_slug>/projects/<project_id>/objects/export/excel?typeId=<elementType_guid>
+        // https://api-stage.bimplus.net/v2/<team_slug>/element-types
         try
         {
-            String json = core.connection.sendGetRequest(core.GetV2TeamUrl() + "/projects/" + projectId + "/objects/export/excel?typeId=" + elementTypeId);
-            String attachmentId = core.mapper.readValue(json, String.class);
-            return attachmentId;
+            String json = core.connection.sendGetRequest( core.GetV2TeamUrl() + "/element-types");
+            return core.mapper.readValue(json, core.mapper.getTypeFactory().constructCollectionType(List.class, DtoElementType.class));
         }
         catch(IOException e)
         {
-           LOG.error(e.getMessage(), e);
-        };
+            LOG.error(e.getMessage(), e);
+        }
         return null;
     }
+
 }
